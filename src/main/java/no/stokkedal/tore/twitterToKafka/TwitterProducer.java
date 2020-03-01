@@ -50,7 +50,7 @@ public class TwitterProducer {
 	String secret = "9049xgYPznUx0fuzWODQrQsjsYfGLV4Lf9Zi43pjj7YDo";
 
 	// Kafka config
-	String bootStrapServer = "127.0.0.1:9092";
+	String bootStrapServer = "rhel1.local:9092";
 	String topic = "tweets-topic";
 
 	public TwitterProducer() {
@@ -65,8 +65,7 @@ public class TwitterProducer {
 
 		log.info("Entering run");
 		// create twitter client with search words
-		List<String> terms = Lists.newArrayList("Kafka", "Høyre", "arbeiderpartiet", "kristelig folkeparti",
-				"senterpartiet");
+		List<String> terms = Lists.newArrayList("Kafka");
 		Client tClient = createTwitterClient(terms);
 		tClient.connect(); // process client
 
@@ -112,6 +111,7 @@ public class TwitterProducer {
 	 */
 	private Client createTwitterClient(List<String> twitterTerms) {
 
+		log.info("Entering with " + twitterTerms);
 		msgQueue = new LinkedBlockingQueue<String>(100000);
 		eventQueue = new LinkedBlockingQueue<Event>(1000);
 
@@ -136,6 +136,7 @@ public class TwitterProducer {
 				.processor(new StringDelimitedProcessor(msgQueue)).eventMessageQueue(eventQueue); // optional: use this
 																									// if you want to
 		Client hosebirdClient = builder.build();
+		
 
 		return hosebirdClient;
 	}

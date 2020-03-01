@@ -1,0 +1,57 @@
+Install Kafka production version
+
+From; https://linuxconfig.org/how-to-install-kafka-on-redhat-8
+
+On RHEL1
+ sudo  wget https://downloads.apache.org/kafka/2.4.0/kafka_2.13-2.4.0.tgz -O /opt/kafka_2.13-2.4.0.tgz
+ 
+ cd /opt # 
+ sudo tar -xvf kafka_2.13-2.4.0.tgz
+ 
+ sudo ln -s /opt/kafka_2.13-2.4.0 /opt/kafka
+ 
+ sudo useradd kafka
+ 
+ sudo chown -R kafka:kafka /opt/kafka*
+ 
+ [Unit] Description=zookeeper After=syslog.target network.target 
+ [Service] Type=simple User=kafka Group=kafka 
+ ExecStart=/opt/kafka/bin/zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties 
+ ExecStop=/opt/kafka/bin/zookeeper-server-stop.sh 
+ [Install] WantedBy=multi-user.target
+ 
+ **** Stop and start zookeeper og kafka
+ ** satt til autostart;
+ systemctl enable zookeeper.service
+ 
+ 
+ **** Install Java
+ sudo yum install java-11-openjdk-devel
+ 
+ **** Open firewall for zookeeper
+ sudo firewall-cmd --permanent --add-port=2181/tcp
+ sudo firewall-cmd --permanent --add-port=9092/tcp
+ 
+ 
+ **** Start TwotterToCafka producer
+ podman run -rm --network host --name t2k t2k 
+ $ -rm betyr slett eksisterende container
+ 
+ 
+ **** Stop & start servers
+ ** Zookeeper m Kafka
+ systemctl start zookeeper
+ systemctl start kafka
+ systemctl status zookeeper
+ systemctl status kafka
+ 
+ ./kafka-topics.sh --zookeeper 127.0.0.1:2181 --list
+ 
+ **** Kafka commands on RHEL1
+ /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic FirstKafkaTopic --from-beginning
+ /opt/kafka/bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --list
+ 
+ ** from MAC
+kafka-topics.sh --zookeeper 192.168.39.249:2181 --list 
+kafka-consumer-groups  --bootstrap-server 192.168.39.249:9092 --list
+ 
