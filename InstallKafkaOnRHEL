@@ -33,7 +33,7 @@ On RHEL1
  sudo firewall-cmd --permanent --add-port=9092/tcp
  
  
- **** Start TwotterToCafka producer
+ **** Start TwitterToKafka producer
  podman run -rm --network host --name t2k t2k 
  $ -rm betyr slett eksisterende container
  

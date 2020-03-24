@@ -49,6 +49,9 @@ public class TwitterProducer {
 	String token = "944520734-ia3XZDa8ZCgApbS1zRVq5IEBqPK4ECynJEDB5qQT";
 	String secret = "9049xgYPznUx0fuzWODQrQsjsYfGLV4Lf9Zi43pjj7YDo";
 
+	// The keywords that we get 
+	List<String> twitterFilterTerms = Lists.newArrayList("IBM, Google, Microsoft, Cloudera");
+	
 	// Kafka config
 	String bootStrapServer = "rhel1.local:9092";
 	String topic = "tweets-topic";
@@ -65,8 +68,7 @@ public class TwitterProducer {
 
 		log.info("Entering run");
 		// create twitter client with search words
-		List<String> terms = Lists.newArrayList("Kafka");
-		Client tClient = createTwitterClient(terms);
+		Client tClient = createTwitterClient(twitterFilterTerms);
 		tClient.connect(); // process client
 
 		log.info("Creating Kafka Client");
@@ -90,7 +92,7 @@ public class TwitterProducer {
 					@Override
 					public void onCompletion(RecordMetadata metadata, Exception e) {
 						if (e != null) {
-							log.error("Colud not send record", e);
+							log.error("Could not send record", e);
 						} else {
 							log.info("Sendt message to Kafka " + metadata.toString());					
 						}

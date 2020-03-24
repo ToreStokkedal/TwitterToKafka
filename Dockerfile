@@ -16,4 +16,4 @@ CMD ./startservices.sh
 # to build; docker build . -t t2k/tores .
 #           podman build . -t t2k/tores
 # to run: docker run --add-host rhel1.local:192.168.39.249 t2k/tores
-#         podman run --add-host rhel1.local:192.168.39.249 t2k/tores
+#         podman run --add-host rhel1.local:192.168.39.249 --name t2k t2k/tores
