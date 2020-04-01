@@ -44,10 +44,10 @@ public class TwitterProducer {
 	BlockingQueue<Event> eventQueue = null;
 
 	// Secrets to authenticate to Twitter ToreS
-	String consumerKey = "mmCpTjwwTfTmbe7Zt1Ipdt1tw";
-	String consumerSecret = "cBY8BdxfybHeR9eCwAnDVkPjMCeTwWMCJ30C7yeXji5gb0EcdO";
-	String token = "944520734-ia3XZDa8ZCgApbS1zRVq5IEBqPK4ECynJEDB5qQT";
-	String secret = "9049xgYPznUx0fuzWODQrQsjsYfGLV4Lf9Zi43pjj7YDo";
+	String consumerKey = "Nope";
+	String consumerSecret = "Nope";
+	String token = "Nope";
+	String secret = "Nope";
 
 	// The keywords that we get 
 	List<String> twitterFilterTerms = Lists.newArrayList("IBM, Google, Microsoft, Cloudera");
